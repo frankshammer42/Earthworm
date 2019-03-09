@@ -1,10 +1,10 @@
 class Wormgroup {
-    constructor (worm_1, worm_2){
-        this.position = p5.Vector.add(worm_1.position, worm_2.position).div(2);
+    constructor (worm_0, worm_1){
+        this.position = p5.Vector.add(worm_0.position, worm_1.position).div(2);
         this.r = 30;
         this.velocity = createVector(0, 0);
         this.acceleration = createVector(0, 0);
-        this.worms = [worm_1, worm_2];
+        this.worms = [worm_0, worm_1];
         this.color = createVector(random(255), random(255), random(255));
         this.alpha = 50;
     }
@@ -17,10 +17,10 @@ class Wormgroup {
     }
 
     display(){
-        for (let worm of this.worms){
-            worm.display();
-        }
-        fill(this.color,x, this.color.y, this.color.z, this.alpha);
+        // for (let worm of this.worms){
+        //     worm.display();
+        // }
+        fill(this.color.x, this.color.y, this.color.z, this.alpha);
         stroke(200);
         strokeWeight(1);
         push();

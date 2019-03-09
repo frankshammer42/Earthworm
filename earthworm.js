@@ -25,7 +25,7 @@ class Earthworm {
       // seekForce.mult(slider2.value());
       this.applyForce(seekForce);
       this.applyForce(seperateForce);
-      // this.cluster(earthworms);
+      // this.cluster(ungrouped_earthworms);
   }
 
 
