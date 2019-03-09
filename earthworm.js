@@ -4,11 +4,17 @@ class Earthworm {
       this.velocity = createVector(random(-1, 1), random(-1, 1));
       this.acceleration = createVector(0, 0);
       this.r = 12;
-      this.maxspeed = ms || 4;
-      this.maxforce = mf || 0.3;
+
+      //Seek Max Speed
+      this.seek_maxspeed = ms || 1;
+      this.seek_maxforce = mf || 0.4;
+      //Separation Max Speed
+      this.sep_maxspeed = ms || 0.42;
+      this.sep_maxforce = mf || 0.4;
+
 
       //Temporary Control Parameters
-      this.desired_separation = 10;
+      this.desired_separation = 30;
 
   }
 
@@ -19,7 +25,7 @@ class Earthworm {
       // seekForce.mult(slider2.value());
       this.applyForce(seekForce);
       this.applyForce(seperateForce);
-      this.cluster(earthworms);
+      // this.cluster(earthworms);
   }
 
 
@@ -44,9 +50,9 @@ class Earthworm {
     if (count > 0) {
       sum.div(count);
       sum.normalize();
-      sum.mult(this.maxspeed);
+      sum.mult(this.sep_maxspeed);
       sum.sub(this.velocity);
-      sum.limit(this.maxspeed);
+      sum.limit(this.sep_maxspeed);
     }
     return sum;
   }
@@ -54,7 +60,7 @@ class Earthworm {
   //TODO: compare changes to find shortest
   seek(earthworms) {
     let target;
-    let desiredattraction = 20;
+    let desiredattraction = 100;
     for (let i = 0; i < earthworms.length; i++) {
         let earth_worm = earthworms[i].userData;
       let d = p5.Vector.dist(this.position, earth_worm.position);
@@ -62,9 +68,9 @@ class Earthworm {
         target = earth_worm.position;
         let desired = p5.Vector.sub(target, this.position);
         desired.normalize();
-        desired.mult(this.maxspeed);
+        desired.mult(this.seek_maxspeed);
         let steer = p5.Vector.sub(desired, this.velocity);
-        steer.limit(this.maxforce);
+        steer.limit(this.seek_maxforce);
         return steer;
       }
     }

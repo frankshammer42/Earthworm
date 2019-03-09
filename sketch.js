@@ -1,6 +1,6 @@
 let earthworms = [];
-let total_number = 20;
-let effective_radius = 50;
+let total_number = 50;
+let effective_radius = 200;
 
 
 
@@ -23,8 +23,9 @@ function draw() {
 
     for (let worm of earthworms) {
         let range = new Circle(worm.position.x, worm.position.y, effective_radius);
-        let surrounding_worms = qtree.query(range);
-        worm.applyBehaviors(surrounding_worms);
+        // let surrounding_worms = qtree.query(range);
+        let closest = qtree.closest(new Point(worm.position.x, worm.position.y), 2, effective_radius);
+        worm.applyBehaviors(closest);
         worm.update();
         worm.display();
         worm.borders();
