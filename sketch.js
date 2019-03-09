@@ -1,8 +1,9 @@
 let ungrouped_earthworms = [];
 let worm_groups = [];
-let total_number = 50;
+let total_number = 100;
 let w2w_effective_radius = 200; //For Ungrouped Worm
 let worm_group_radius_threshold = 20; //If lower than this, group
+//TODO: Create move effective way to filter out elements
 
 
 
@@ -33,17 +34,20 @@ function draw() {
             let worm_0_clone = Object.assign( Object.create( Object.getPrototypeOf(worm_0_ref)), worm_0_ref);
             let worm_1_ref = closest[1].userData;
             let worm_1_clone = Object.assign( Object.create( Object.getPrototypeOf(worm_1_ref)), worm_1_ref);
-            let worm_group = new Wormgroup(worm_0_clone, worm_1_clone);
-            worm_groups.push(worm_group);
-            wormArrayRemove(ungrouped_earthworms, worm_0_ref.position);
-            wormArrayRemove(ungrouped_earthworms, worm_1_ref.position);
+            let distance = p5.Vector.sub(worm_0_ref.position, worm_1_ref.position).mag();
+            if (distance < worm_group_radius_threshold){
+                let worm_group = new Wormgroup(worm_0_clone, worm_1_clone);
+                worm_group.init();
+                worm_groups.push(worm_group);
+                ungrouped_earthworms = wormArrayRemove(ungrouped_earthworms, worm_0_ref.position);
+                ungrouped_earthworms = wormArrayRemove(ungrouped_earthworms, worm_1_ref.position);
+            }
         }
     }
 
 
     for (let worm of ungrouped_earthworms) {
-        let range = new Circle(worm.position.x, worm.position.y, w2w_effective_radius);
-        // let surrounding_worms = qtree.query(range);
+        let range = new Circle(worm.position.x, worm.position.y, w2w_effective_radius); // let surrounding_worms = qtree.query(range);
         let closest = qtree.closest(new Point(worm.position.x, worm.position.y), 2, w2w_effective_radius);
         worm.applyBehaviors(closest);
         worm.update();

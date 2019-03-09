@@ -17,9 +17,9 @@ class Wormgroup {
     }
 
     display(){
-        // for (let worm of this.worms){
-        //     worm.display();
-        // }
+        for (let worm of this.worms){
+            worm.display();
+        }
         fill(this.color.x, this.color.y, this.color.z, this.alpha);
         stroke(200);
         strokeWeight(1);

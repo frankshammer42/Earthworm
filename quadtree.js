@@ -280,6 +280,16 @@ class QuadTree {
     return found;
   }
 
+  closest_no_resize(point, count, size){
+
+
+
+  }
+
+
+
+
+
   closest(point, count, startingSize) {
     if (typeof count === "undefined") {
       count = 1;
