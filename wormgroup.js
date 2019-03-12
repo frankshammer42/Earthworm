@@ -83,6 +83,7 @@ class Wormgroup {
           this.worms.push(worm);
       }
       this.reset_worms_info();
+        // delete  other_group;
     }
 
 

@@ -1,10 +1,10 @@
 let ungrouped_earthworms = [];
 let worm_groups = [];
-let total_number = 50;
+let total_number = 300;
 let w2w_effective_radius = 200; //For Ungrouped Worm
 let worm_group_radius_threshold = 20; //If lower than this, group worms
-let g2g_effective_radius = 500; // For Worm Group -> what is the range group should check
-let g2g_swallow_threshold = 30; // If below threshold, combine two groups together
+let g2g_effective_radius = 1000; // For Worm Group -> what is the range group should check
+let g2g_swallow_threshold = 50; // If below threshold, combine two groups together
 //TODO: Create move effective way to filter out elements
 
 
@@ -57,6 +57,7 @@ function draw() {
         }
     }
 
+    let new_groups = [];
     for (let worm_group of worm_groups){
         //Go to the group that contains the most worms
         let range = new Circle(worm_group.position.x, worm_group.position.y, g2g_effective_radius);
@@ -74,20 +75,33 @@ function draw() {
             //Check if we should swallow the other group
             let current_worm_group_to_apply = group_to_apply.userData;
             let distance = p5.Vector.sub(current_worm_group_to_apply.position, worm_group.position).mag();
-            if (distance < g2g_swallow_threshold && distance !== 0){
-                worm_group.swallow(current_worm_group_to_apply);
+            // if (distance < g2g_swallow_threshold && distance !== 0){
+                // worm_group.swallow(current_worm_group_to_apply);
+                // worm_group.r *= 2 ;
+                // current_worm_group_to_apply.worms = [];
+                // let worm_group_clone = Object.assign( Object.create( Object.getPrototypeOf(worm_group)), worm_group);
+                // worm_groups.push(worm_group_clone);
                 // worm_group.update();
-                worm_group.borders();
-                worm_groups = arrayRemove(worm_groups, current_worm_group_to_apply.position);
-            }
-            else{
-                group_to_apply  = [group_to_apply]; //Need to pass in array
-                worm_group.applyBehaviors(group_to_apply);
-                worm_group.update();
-                worm_group.borders();
-            }
+                // worm_group.borders();
+                // worm_groups = arrayRemove(worm_groups, current_worm_group_to_apply.position);
+                // break;
+                // worm_groups = arrayRemove(worm_groups, worm_group.position);
+            // }
+            // else{
+            group_to_apply  = [group_to_apply]; //Need to pass in array
+            worm_group.applyBehaviors(group_to_apply);
+            worm_group.update();
+            worm_group.borders();
+            // }
         }
     }
+    // for (let group of new_groups){
+    //     worm_groups.push(group);
+    // }
+    // for (let position of positions_to_remove){
+    //     worm_groups = arrayRemove(worm_groups, position);
+    // }
+
 
     for (let worm of ungrouped_earthworms) {
         let closest = worm_qtree.closest(new Point(worm.position.x, worm.position.y), 2, w2w_effective_radius);
