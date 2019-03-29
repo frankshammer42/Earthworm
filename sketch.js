@@ -1,11 +1,13 @@
+//fuck
 let ungrouped_earthworms = [];
 let worm_groups = [];
-let total_number = 300;
+let total_number = 200;
 let w2w_effective_radius = 200; //For Ungrouped Worm
 let worm_group_radius_threshold = 20; //If lower than this, group worms
 let g2g_effective_radius = 1000; // For Worm Group -> what is the range group should check
 let g2g_swallow_threshold = 50; // If below threshold, combine two groups together
 //TODO: Create move effective way to filter out elements
+//TODO: arrival steering
 
 
 
