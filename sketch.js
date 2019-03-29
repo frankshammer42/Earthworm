@@ -1,4 +1,3 @@
-//fuck
 let ungrouped_earthworms = [];
 let worm_groups = [];
 let total_number = 200;
